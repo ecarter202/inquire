@@ -9,6 +9,7 @@ type Command struct {
 type app struct {
 	prefix   string
 	commands []*Command
+	done     <-chan bool
 }
 
 func (a *app) Prefix(prefix string) *app {
@@ -21,6 +22,16 @@ func (a *app) Commands(commands []*Command) *app {
 	return a
 }
 
+func (a *app) Run() {
+	for {
+		if <-a.done {
+			break
+		}
+	}
+}
+
 func New() *app {
-	return new(app)
+	return &app{
+		done: make(chan bool, 1),
+	}
 }
