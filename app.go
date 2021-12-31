@@ -10,13 +10,6 @@ import (
 	"github.com/fatih/color"
 )
 
-// Command is a representation of an available command.
-type Command struct {
-	Label       string
-	Description string
-	Handler     func() error
-}
-
 type app struct {
 	prefix      string
 	prefixColor color.Attribute
